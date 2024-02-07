@@ -9,17 +9,13 @@ class ViewPage(tk.Frame):
         self.page_name = "View"
 
         # Label to display the content
-        self.page_label = tk.Label(self, text="Tables in database.db:")
+        self.page_label = tk.Label(self, text="select table name")
         self.page_label.pack(pady=10, padx=10, anchor="w")
 
-        # Listbox to display table names
-        self.table_listbox = tk.Listbox(self, height=10)
-        self.table_listbox.pack(pady=5, padx=10, fill="both", expand=True)
-
-        # Text input field for table name
-        self.table_name_entry = tk.Entry(self)
-        self.table_name_entry.pack(pady=5, padx=10)
-
+        # Dropdown to display table names
+        self.table_dropdown = ttk.Combobox(self, state="readonly")
+        self.table_dropdown.pack(pady=5, padx=10)
+        
         # Button to fetch table details
         self.fetch_button = tk.Button(self, text="Fetch Table Details", command=self.fetch_table_details)
         self.fetch_button.pack(pady=5, padx=10)
@@ -32,28 +28,24 @@ class ViewPage(tk.Frame):
         self.connection = sqlite3.connect('database.db')
         self.cursor = self.connection.cursor()
 
-        # Populate table names in the listbox
-        self.populate_table_listbox()
+        # Populate table names in the dropdown
+        self.populate_table_dropdown()
 
-    def populate_table_listbox(self):
-        # Clear existing items
-        self.table_listbox.delete(0, tk.END)
-
+    def populate_table_dropdown(self):
         # Fetch table names from SQLite database
         self.cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
-        tables = self.cursor.fetchall()
+        tables = [table[0] for table in self.cursor.fetchall()]
 
-        # Insert table names into the listbox
-        for table in tables:
-            self.table_listbox.insert(tk.END, table[0])
+        # Insert table names into the dropdown
+        self.table_dropdown['values'] = tables
 
     def fetch_table_details(self):
         # Clear existing treeview items
         for item in self.treeview.get_children():
             self.treeview.delete(item)
         
-        # Get table name from entry field
-        table_name = self.table_name_entry.get()
+        # Get selected table name from the dropdown
+        table_name = self.table_dropdown.get()
 
         # Fetch table details from SQLite database
         self.cursor.execute(f"PRAGMA table_info({table_name})")

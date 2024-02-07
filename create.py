@@ -70,7 +70,7 @@ class CreatePage(tk.Frame):
         connection = sqlite3.connect('database.db')
         cursor = connection.cursor()
 
-        cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} ("
+        cursor.execute(f"CREATE TABLE IF NOT EXISTS {table_name} (id INTEGER PRIMARY KEY AUTOINCREMENT,"
                        f"{', '.join([f'{col[0]} {col[1]}' for col in columns])}"
                        ")")
 

@@ -17,11 +17,13 @@ class InsertPage(tk.Frame):
         self.page_label = tk.Label(self, text="Insert Data into Table")
         self.page_label.pack(pady=10)
 
-        # Table name entry
-        self.table_name_label = tk.Label(self, text="Table Name:")
-        self.table_name_label.pack()
-        self.table_name_entry = tk.Entry(self)
-        self.table_name_entry.pack(pady=5)
+        # Label to display the content
+        self.table_name_label = tk.Label(self, text="select table name")
+        self.table_name_label.pack(pady=10, padx=10, anchor="w")
+
+        # Dropdown to display table names
+        self.table_name_entry = ttk.Combobox(self, state="readonly")
+        self.table_name_entry.pack(pady=5, padx=10)
 
         # Button to fetch table details
         self.fetch_button = tk.Button(self, text="Fetch Table Details", command=self.fetch_table_details)
@@ -36,6 +38,8 @@ class InsertPage(tk.Frame):
         # Initialize database connection
         self.connection = sqlite3.connect('database.db')
         self.cursor = self.connection.cursor()
+        self.populate_table_dropdown()
+
 
     def fetch_table_details(self):
         # Clear existing treeview items
@@ -105,7 +109,13 @@ class InsertPage(tk.Frame):
         tk.messagebox.showinfo("Success", "Data inserted successfully!")
 
         self.connection.close()
+    def populate_table_dropdown(self):
+        # Fetch table names from SQLite database
+        self.cursor.execute("SELECT name FROM sqlite_master WHERE type='table'")
+        tables = [table[0] for table in self.cursor.fetchall()]
 
+        # Insert table names into the dropdown
+        self.table_name_entry['values'] = tables
 if __name__ == "__main__":
     root = tk.Tk()
     insert_page = InsertPage(root)
