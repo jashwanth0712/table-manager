@@ -9,10 +9,6 @@ class AlterPage(tk.Frame):
         self.master = master
         self.page_name = "Alter"
 
-        # Label to display the selected option
-        self.selected_label = tk.Label(self, text="Selected Option: " + self.page_name)
-        self.selected_label.pack(side="top", pady=10)
-
              # Label to display the content
         self.table_name_label = tk.Label(self, text="select table name")
         self.table_name_label.pack(pady=10, padx=10, anchor="w")

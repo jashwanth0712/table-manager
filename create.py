@@ -8,9 +8,6 @@ class CreatePage(tk.Frame):
         self.master = master
         self.page_name = "Create"
 
-        # Label to display the selected option
-        self.selected_label = tk.Label(self, text="Selected Option: " + self.page_name)
-        self.selected_label.pack(side="top", pady=10)
 
         # Label to display the content
         self.page_label = tk.Label(self, text="Create Table")

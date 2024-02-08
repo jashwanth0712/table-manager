@@ -9,10 +9,6 @@ class InsertPage(tk.Frame):
         self.page_name = "Insert"
         self.data_entries = {}  # Store entry fields for data insertion
 
-        # Label to display the selected option
-        self.selected_label = tk.Label(self, text="Selected Option: " + self.page_name)
-        self.selected_label.pack(side="top", pady=10)
-
         # Label to display the content
         self.page_label = tk.Label(self, text="Insert Data into Table")
         self.page_label.pack(pady=10)
