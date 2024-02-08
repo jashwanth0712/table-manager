@@ -54,10 +54,14 @@ class CreatePage(tk.Frame):
 
         column_type_label = tk.Label(column_frame, text="Data Type:")
         column_type_label.grid(row=1, column=0)
-        column_type_entry = tk.Entry(column_frame)
-        column_type_entry.grid(row=1, column=1)
+        
+        # Dropdown for data types
+        data_types = ["INTEGER", "TEXT", "REAL", "BLOB", "NUMERIC"]
+        column_type_combobox = ttk.Combobox(column_frame, values=data_types)
+        column_type_combobox.grid(row=1, column=1)
+        column_type_combobox.current(0)  # set default to first option
 
-        self.columns.append((column_name_entry, column_type_entry))
+        self.columns.append((column_name_entry, column_type_combobox))
 
     def create_table(self):
         # Get table name
