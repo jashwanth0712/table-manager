@@ -1,9 +1,15 @@
 import tkinter as tk
+
 from tkinter import ttk
+
 from view import ViewPage
+
 from create import CreatePage
+
 from alter import AlterPage
+
 from insert import InsertPage
+
 from update import UpdatePage
 
 class MainApplication(tk.Tk):
