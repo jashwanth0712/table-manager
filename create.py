@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 import sqlite3
-
+# create page contains all the functionalities required to run a create table operation
 class CreatePage(tk.Frame):
     def __init__(self, master):
         super().__init__(master)
